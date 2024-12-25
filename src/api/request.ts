@@ -1,35 +1,22 @@
 import { toaster } from "@/components/ui/toaster.tsx";
-import axios, {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig
-} from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
+const apiKey = import.meta.env.VITE_API_KEY;
+const baseURL = import.meta.env.VITE_API_URL;
 
 export const client = (() => {
   return axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+    baseURL,
     timeout: 10000,
+    params: {
+      key: apiKey
+    },
     headers: {
-      Accept: "application/json, text/plain, */*"
+      Accept: "application/json"
     }
   });
 })();
 
-client.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const apiKey = process.env.REACT_APP_API_KEY;
-
-    if (apiKey) {
-      config.headers.ApiKeyAuth = apiKey;
-    }
-
-    return config;
-  },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  }
-);
 client.interceptors.response.use(
   (res: AxiosResponse) => {
     return res;

@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1,
+      // retry: 1,
       refetchOnWindowFocus: false
     }
   }
