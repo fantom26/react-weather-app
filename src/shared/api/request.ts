@@ -1,3 +1,4 @@
+import { toaster } from "@/components/ui/toaster.tsx";
 import axios, {
   AxiosError,
   AxiosRequestConfig,
@@ -55,7 +56,7 @@ client.interceptors.response.use(
       };
 
       if (Object.prototype.hasOwnProperty.call(errorMessages, code)) {
-        console.error(errorMessages[code]);
+        toaster.create({ title: errorMessages[code], type: "error" });
       } else {
         console.error(`Unexpected Error ${code}: ${message}`);
       }
